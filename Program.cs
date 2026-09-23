@@ -8,6 +8,7 @@ builder.Services.AddScoped<IMediaService, MediaService>();
 // Register Video Service & HttpClient
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IVideoService, VideoService>();
+builder.Services.AddScoped<ISupabaseLibraryService, SupabaseLibraryService>();
 
 var app = builder.Build();
 
