@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Tata Pack - Media Player";
 }
 
@@ -29,6 +29,9 @@
             </button>
             <button type="button" class="sidebar-item" id="btnNavFavorites" onclick="showPage('favorites')">
                 🤍 Favorites
+            </button>
+            <button type="button" class="sidebar-item" id="btnNavRecentlyPlayed" onclick="showPage('recentlyPlayed')">
+                🕘 Recently Played
             </button>
         </nav>
     </aside>
@@ -79,6 +82,11 @@
         <section id="pageAudio" class="page-section" style="display: none;">
             <div class="section-header">
                 <h3>← Now Playing Audio</h3>
+            </div>
+
+            <div style="display:flex; gap:8px; margin:10px 0;">
+                <button type="button" onclick="toggleCurrentAudioFavorite()" id="audioFavoriteBtn">🤍 Favorite</button>
+                <button type="button" onclick="openPlaylistPickerForCurrentAudio()">+ Add to Playlist</button>
             </div>
 
             <div class="audio-two-column">
@@ -163,8 +171,8 @@
                         <small id="videoDisplayMeta" style="color: #666;">Video &bull; 0:00</small>
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button type="button" onclick="alert('Added to Playlist (Handled by teammate)')">+ Add to Playlist</button>
-                        <button type="button" onclick="alert('Added to Favorites (Handled by teammate)')">🤍</button>
+                        <button type="button" onclick="openPlaylistPickerForCurrentVideo()">+ Add to Playlist</button>
+                        <button type="button" onclick="toggleCurrentVideoFavorite()" id="videoFavoriteBtn">🤍</button>
                     </div>
                 </div>
             </div>
@@ -179,41 +187,39 @@
         </section>
 
 
-        <!-- ============================================== -->
-        <!-- 4. PLAYLISTS PAGE (Teammate Placeholder) -->
-        <!-- ============================================== -->
+        <!-- 4. PLAYLISTS -->
         <section id="pagePlaylists" class="page-section" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                 <h3>My Playlists</h3>
-                <button type="button" onclick="alert('Create playlist feature (handled by teammate)')">+ Create Playlist</button>
+                <button type="button" onclick="createPlaylist()">+ Create Playlist</button>
             </div>
-
-            <div class="media-grid">
-                <div class="static-card">
-                    <div class="static-thumb">🎵</div>
-                    <strong>Chill Vibes</strong>
-                    <small>8 songs &bull; 32 min</small>
-                </div>
-                <div class="static-card">
-                    <div class="static-thumb">🎵</div>
-                    <strong>Workout Mix</strong>
-                    <small>12 songs &bull; 48 min</small>
-                </div>
-                <div class="static-card">
-                    <div class="static-thumb">🎬</div>
-                    <strong>Movie Nights</strong>
-                    <small>5 videos &bull; 2 hr 10 min</small>
-                </div>
+            <div id="playlistGrid" class="media-grid"><p>Loading playlists...</p></div>
+            <div id="playlistItemsPanel" style="display:none; margin-top:25px;">
+                <div class="section-header"><h4 id="selectedPlaylistTitle">Playlist</h4></div>
+                <div id="playlistItemsList" class="audio-list"></div>
             </div>
         </section>
 
-        <!-- 5. FAVORITES PAGE -->
+        <!-- 5. FAVORITES -->
         <section id="pageFavorites" class="page-section" style="display: none;">
-            <div class="section-header">
-                <h3>My Favorites</h3>
-            </div>
-            <p style="color: #777;">Your favorite songs and videos will appear here.</p>
+            <div class="section-header"><h3>My Favorites</h3></div>
+            <div id="favoritesGrid" class="media-grid"><p>Loading favorites...</p></div>
         </section>
+
+        <!-- 6. RECENTLY PLAYED -->
+        <section id="pageRecentlyPlayed" class="page-section" style="display: none;">
+            <div class="section-header"><h3>Recently Played</h3></div>
+            <div id="recentlyPlayedGrid" class="media-grid"><p>Loading recently played...</p></div>
+        </section>
+
+        <!-- Playlist picker -->
+        <div id="playlistPicker" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:9999; align-items:center; justify-content:center;">
+            <div style="background:#fff; border-radius:12px; padding:22px; width:min(420px,90vw);">
+                <h4>Add to Playlist</h4>
+                <div id="playlistPickerList"></div>
+                <button type="button" onclick="closePlaylistPicker()" style="margin-top:15px;">Cancel</button>
+            </div>
+        </div>
 
     </main>
 
@@ -222,4 +228,5 @@
 @section Scripts {
     <script src="~/js/media-player.js"></script>
     <script src="~/js/video-player.js"></script>
+    <script src="~/js/library.js"></script>
 }
