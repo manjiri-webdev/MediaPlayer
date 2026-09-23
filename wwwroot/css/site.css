@@ -660,3 +660,80 @@ body {
         padding: 12px 14px 22px;
     }
 }
+
+/* Star ratings */
+.rating-widget {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.media-card-item .rating-star,
+.audio-row-item .rating-star {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 2px 3px;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--border);
+    cursor: pointer;
+}
+
+.rating-star.lit {
+    color: #f5b301;
+}
+
+.rating-star:hover {
+    transform: scale(1.2);
+}
+
+.rating-meta {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.player-rating-slot {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.player-rating-slot.player-rating-left {
+    justify-content: flex-start;
+}
+
+/* Own rating row */
+.rating-widget {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.rating-own {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.rating-own-value {
+    color: var(--text);
+}
+
+.rating-input {
+    width: 58px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 12px;
+}
