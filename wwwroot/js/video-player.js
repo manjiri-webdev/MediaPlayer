@@ -10,7 +10,7 @@ let currentVideoIdx = -1;
 // 1. PAGE SWITCHER (Home, Audio, Video, Playlists, Favorites)
 function showPage(pageName) {
     const pages = ['pageHome', 'pageAudio', 'pageVideo', 'pagePlaylists', 'pageFavorites'];
-    const navButtons = ['btnNavHome', 'btnNavAudio', 'btnNavVideo', 'btnNavPlaylists', 'btnNavFavorites'];
+    const navButtons = ['btnNavHome', 'btnNavAudio', 'btnNavVideo', 'btnNavPlaylists', 'btnNavFavorites', 'btnNavRecentlyPlayed'];
 
     pages.forEach(p => {
         const el = document.getElementById(p);
@@ -40,6 +40,9 @@ function showPage(pageName) {
     } else if (pageName === 'favorites') {
         document.getElementById('pageFavorites').style.display = 'block';
         document.getElementById('btnNavFavorites').classList.add('active');
+    } else if (pageName === 'recentlyPlayed') {
+        document.getElementById('pageRecentlyPlayed').style.display = 'block';
+        document.getElementById('btnNavRecentlyPlayed').classList.add('active');
     }
 }
 
@@ -179,7 +182,8 @@ function playSelectedAudio(song, autoPlay = true) {
     const streamUrl = `/api/media/play/${encodeURIComponent(song.id)}`;
 
     player.src = streamUrl;
-    if (autoPlay) player.play();
+    window.currentAudioMedia = { id: song.id, title: song.title, type: 'Audio', streamUrl: streamUrl };
+    if (autoPlay) { player.play(); recordRecentlyPlayed(window.currentAudioMedia); }
 }
 
 // 5. VIDEO PAGE LOGIC
@@ -233,7 +237,8 @@ function selectVideoByIndex(index, autoPlay = true) {
 
     attachVideoEvents(video);
 
-    if (autoPlay) video.play();
+    window.currentVideoMedia = { id: v.id, title: v.title, type: 'Video', streamUrl: `/api/video/play/${encodeURIComponent(v.id)}` };
+    if (autoPlay) { video.play(); recordRecentlyPlayed(window.currentVideoMedia); }
 }
 
 function playSelectedVideo(id) {
