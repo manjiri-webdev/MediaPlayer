@@ -9,7 +9,7 @@ let currentVideoIdx = -1;
 
 // 1. PAGE SWITCHER (Home, Audio, Video, Playlists, Favorites)
 function showPage(pageName) {
-    const pages = ['pageHome', 'pageAudio', 'pageVideo', 'pagePlaylists', 'pageFavorites'];
+    const pages = ['pageHome', 'pageAudio', 'pageVideo', 'pagePlaylists', 'pageFavorites', 'pageRecentlyPlayed'];
     const navButtons = ['btnNavHome', 'btnNavAudio', 'btnNavVideo', 'btnNavPlaylists', 'btnNavFavorites', 'btnNavRecentlyPlayed'];
 
     pages.forEach(p => {
