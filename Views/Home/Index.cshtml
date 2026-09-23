@@ -4,7 +4,6 @@
 
 <div class="app-layout">
 
-    <!-- LEFT SIDEBAR (Library removed) -->
     <aside class="sidebar">
         <div class="brand">
             <span class="brand-icon">▶</span>
@@ -16,86 +15,77 @@
 
         <nav class="sidebar-menu">
             <button type="button" class="sidebar-item active" id="btnNavHome" onclick="showPage('home')">
-                🏠 Home
+                <span class="nav-icon">🏠</span> Home
             </button>
             <button type="button" class="sidebar-item" id="btnNavAudio" onclick="showPage('audio')">
-                🎵 Audio
+                <span class="nav-icon">🎵</span> Audio
             </button>
             <button type="button" class="sidebar-item" id="btnNavVideo" onclick="showPage('video')">
-                🎬 Video
+                <span class="nav-icon">🎬</span> Video
             </button>
             <button type="button" class="sidebar-item" id="btnNavPlaylists" onclick="showPage('playlists')">
-                📑 Playlists
+                <span class="nav-icon">📑</span> Playlists
             </button>
             <button type="button" class="sidebar-item" id="btnNavFavorites" onclick="showPage('favorites')">
-                🤍 Favorites
+                <span class="nav-icon">🤍</span> Favorites
             </button>
         </nav>
     </aside>
 
-    <!-- RIGHT CONTENT AREA -->
     <main class="content-area">
 
-        <!-- TOP SEARCH BAR (Visible on all pages) -->
         <div class="search-bar-row">
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Search songs, videos..." 
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search songs, videos..."
+                autocomplete="off"
                 onkeyup="handleGlobalSearch(this.value)" />
         </div>
 
-        <!-- ============================================== -->
-        <!-- 1. HOME / ALL MEDIA PAGE -->
-        <!-- ============================================== -->
         <section id="pageHome" class="page-section">
             <div class="greeting-box">
-                <h2>Good Morning!</h2>
-                <p>Your media, your way.</p>
+                <div>
+                    <h2>Good Morning!</h2>
+                    <p>Your media, your way.</p>
+                </div>
             </div>
 
-            <!-- Filter Pills -->
             <div class="filter-pills">
                 <button type="button" class="pill active" onclick="filterHomeMedia('all')">All</button>
                 <button type="button" class="pill" onclick="filterHomeMedia('audio')">🎵 Audio</button>
                 <button type="button" class="pill" onclick="filterHomeMedia('video')">🎬 Video</button>
             </div>
 
-            <!-- Recently Added Title -->
             <div class="section-header">
                 <h3>Recently Added</h3>
+                <small class="muted">Tap a card to play</small>
             </div>
 
-            <!-- Dynamic Media Grid (Audio + Videos together!) -->
             <div id="homeMediaGrid" class="media-grid">
                 Loading all media...
             </div>
         </section>
 
-
-        <!-- ============================================== -->
-        <!-- 2. AUDIO PLAYER PAGE -->
-        <!-- ============================================== -->
         <section id="pageAudio" class="page-section" style="display: none;">
             <div class="section-header">
-                <h3>← Now Playing Audio</h3>
+                <h3>Now Playing Audio</h3>
+                <small class="muted">Sit back and listen</small>
             </div>
 
             <div class="audio-two-column">
-                <!-- Left: Big Audio Player -->
                 <div class="audio-main-player">
                     <div class="audio-art">🎵</div>
                     <h3 id="audioPlayerTitle">Select an audio</h3>
-                    <p id="audioPlayerArtist" style="color: #666;">Audio Track</p>
-
-                    <div id="audioElementContainer" style="margin-top: 15px;">
-                        <audio id="mainAudioPlayer" controls style="width: 100%;">
+                    <p id="audioPlayerArtist" class="muted">Audio Track</p>
+                    <div id="audioElementContainer" class="audio-element">
+                        <audio id="mainAudioPlayer" controls>
                             Your browser does not support audio.
                         </audio>
                     </div>
                 </div>
 
-                <!-- Right: Up Next Playlist -->
                 <div class="audio-up-next">
                     <h4>Up Next</h4>
                     <div id="audioQueueList" class="audio-list">
@@ -105,44 +95,39 @@
             </div>
         </section>
 
-
-        <!-- ============================================== -->
-        <!-- 3. VIDEO PLAYER PAGE -->
-        <!-- ============================================== -->
         <section id="pageVideo" class="page-section" style="display: none;">
             <div class="section-header">
-                <h3>← Now Playing Video</h3>
+                <h3>Now Playing Video</h3>
+                <small class="muted">Cinema mode at home</small>
             </div>
 
             <div class="video-main-box">
-                <!-- Video Screen -->
-                <video id="mainVideoPlayer" controls style="width: 100%; max-height: 440px; background: #000; border-radius: 8px;">
+                <video id="mainVideoPlayer" controls class="video-screen">
                     Your browser does not support video.
                 </video>
 
-                <!-- Custom Controls Bar -->
                 <div class="video-controls-row">
                     <div class="time-seek-bar">
                         <span id="currentTimeText">00:00</span>
-                        <input type="range" id="videoSeekBar" value="0" min="0" step="0.1" style="flex-grow: 1;">
+                        <input type="range" id="videoSeekBar" value="0" min="0" step="0.1" class="seek-range" />
                         <span id="totalDurationText">00:00</span>
                     </div>
 
                     <div class="video-buttons-bar">
                         <div class="btn-group">
-                            <button type="button" onclick="previousVideo()">⏮ Prev</button>
-                            <button type="button" id="btnPlayPause" onclick="togglePlayPause()">▶ Play</button>
-                            <button type="button" onclick="stopVideo()">⏹ Stop</button>
-                            <button type="button" onclick="nextVideo()">⏭ Next</button>
+                            <button type="button" class="btn-ghost" onclick="previousVideo()">⏮ Prev</button>
+                            <button type="button" class="btn-primary" id="btnPlayPause" onclick="togglePlayPause()">▶ Play</button>
+                            <button type="button" class="btn-ghost" onclick="stopVideo()">⏹ Stop</button>
+                            <button type="button" class="btn-ghost" onclick="nextVideo()">⏭ Next</button>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" id="btnMute" onclick="toggleMute()">🔊</button>
-                            <input type="range" id="videoVolume" min="0" max="1" step="0.05" value="1" style="width: 75px;">
+                            <button type="button" class="btn-ghost" id="btnMute" onclick="toggleMute()">🔊</button>
+                            <input type="range" id="videoVolume" min="0" max="1" step="0.05" value="1" class="volume-range" />
                         </div>
 
                         <div class="btn-group">
-                            <label style="font-size: 13px;">Speed:
+                            <label class="speed-label">Speed:
                                 <select id="videoSpeedSelect" onchange="changePlaybackSpeed(this.value)">
                                     <option value="0.5">0.5x</option>
                                     <option value="1" selected>1x</option>
@@ -151,26 +136,24 @@
                                     <option value="2">2x</option>
                                 </select>
                             </label>
-                            <button type="button" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+                            <button type="button" class="btn-ghost" onclick="toggleFullscreen()">⛶ Fullscreen</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Video Info & Add to Playlist row -->
                 <div class="video-info-footer">
                     <div>
-                        <h4 id="videoDisplayTitle" style="margin: 0;">Select a video</h4>
-                        <small id="videoDisplayMeta" style="color: #666;">Video &bull; 0:00</small>
+                        <h4 id="videoDisplayTitle">Select a video</h4>
+                        <small id="videoDisplayMeta" class="muted">Video &bull; 0:00</small>
                     </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button type="button" onclick="alert('Added to Playlist (Handled by teammate)')">+ Add to Playlist</button>
-                        <button type="button" onclick="alert('Added to Favorites (Handled by teammate)')">🤍</button>
+                    <div class="video-actions">
+                        <button type="button" class="btn-ghost" onclick="alert('Added to Playlist (Handled by teammate)')">+ Add to Playlist</button>
+                        <button type="button" class="btn-ghost" onclick="alert('Added to Favorites (Handled by teammate)')">🤍</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Video Library Below Player -->
-            <div class="section-header" style="margin-top: 30px;">
+            <div class="section-header split">
                 <h3>All Videos</h3>
             </div>
             <div id="videoLibraryGrid" class="media-grid">
@@ -178,41 +161,40 @@
             </div>
         </section>
 
-
-        <!-- ============================================== -->
-        <!-- 4. PLAYLISTS PAGE (Teammate Placeholder) -->
-        <!-- ============================================== -->
         <section id="pagePlaylists" class="page-section" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="section-header split">
                 <h3>My Playlists</h3>
-                <button type="button" onclick="alert('Create playlist feature (handled by teammate)')">+ Create Playlist</button>
+                <button type="button" class="btn-primary" onclick="alert('Create playlist feature (handled by teammate)')">+ Create Playlist</button>
             </div>
 
             <div class="media-grid">
                 <div class="static-card">
                     <div class="static-thumb">🎵</div>
                     <strong>Chill Vibes</strong>
-                    <small>8 songs &bull; 32 min</small>
+                    <small class="muted">8 songs &bull; 32 min</small>
                 </div>
                 <div class="static-card">
                     <div class="static-thumb">🎵</div>
                     <strong>Workout Mix</strong>
-                    <small>12 songs &bull; 48 min</small>
+                    <small class="muted">12 songs &bull; 48 min</small>
                 </div>
                 <div class="static-card">
                     <div class="static-thumb">🎬</div>
                     <strong>Movie Nights</strong>
-                    <small>5 videos &bull; 2 hr 10 min</small>
+                    <small class="muted">5 videos &bull; 2 hr 10 min</small>
                 </div>
             </div>
         </section>
 
-        <!-- 5. FAVORITES PAGE -->
         <section id="pageFavorites" class="page-section" style="display: none;">
             <div class="section-header">
                 <h3>My Favorites</h3>
+                <small class="muted">Managed by your teammate</small>
             </div>
-            <p style="color: #777;">Your favorite songs and videos will appear here.</p>
+            <div class="empty-state">
+                <div class="empty-icon">🤍</div>
+                <p>Your favorite songs and videos will appear here.</p>
+            </div>
         </section>
 
     </main>
