@@ -235,4 +235,7 @@ function playMedia(media) {
 // LOAD ALL MEDIA WHEN PAGE OPENS
 // ==========================================
 
-loadMedia();
+// Legacy page only, skip when its markup is absent.
+if (document.getElementById("mediaList") && document.getElementById("playerContainer")) {
+    loadMedia();
+}

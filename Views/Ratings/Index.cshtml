@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Top Rated - Media Player";
+}
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-icon">▶</span>
+            <div>
+                <h3>Tata Pack</h3>
+                <small>Media Player</small>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+            <button type="button" class="sidebar-item" onclick="window.location.href='/'">
+                <span class="nav-icon">🏠</span> Home
+            </button>
+            <button type="button" class="sidebar-item" onclick="window.location.href='/?section=audio'">
+                <span class="nav-icon">🎵</span> Audio
+            </button>
+            <button type="button" class="sidebar-item" onclick="window.location.href='/?section=video'">
+                <span class="nav-icon">🎬</span> Video
+            </button>
+            <button type="button" class="sidebar-item" onclick="window.location.href='/?section=playlists'">
+                <span class="nav-icon">📑</span> Playlists
+            </button>
+            <button type="button" class="sidebar-item" onclick="window.location.href='/?section=favorites'">
+                <span class="nav-icon">🤍</span> Favorites
+            </button>
+            <button type="button" class="sidebar-item" onclick="window.location.href='/?section=recentlyPlayed'">
+                <span class="nav-icon">🕘</span> Recently Played
+            </button>
+            <button type="button" class="sidebar-item active" onclick="window.location.href='/Ratings'">
+                <span class="nav-icon">⭐</span> Ratings
+            </button>
+        </nav>
+    </aside>
+
+    <main class="content-area">
+
+        <div class="search-bar-row">
+            <span class="search-icon">🔍</span>
+            <input
+                type="text"
+                id="ratingsSearch"
+                placeholder="Search rated songs, videos..."
+                autocomplete="off"
+                onkeyup="filterRatings(this.value)" />
+        </div>
+
+        <div class="section-header split">
+            <div>
+                <h3>Top Rated</h3>
+                <small class="muted">Highest rated songs and videos</small>
+            </div>
+        </div>
+
+        <div id="ratingsGrid" class="media-grid">
+            <p>Loading ratings...</p>
+        </div>
+
+    </main>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/ratings.js"></script>
+}
